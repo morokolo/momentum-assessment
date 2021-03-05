@@ -1,0 +1,7 @@
+{
+  "name": "momentum-assesment",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
