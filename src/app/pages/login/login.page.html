@@ -18,6 +18,9 @@
   </ion-list>
 
   <div padding>
-    <ion-button expand="full" (click)="login()">Full Button</ion-button>
+    <ion-button expand="full" (click)="login()">
+      <ion-spinner *ngIf="(loading$ | async)"></ion-spinner>
+      Full Button
+    </ion-button>
   </div>
 </ion-content>
