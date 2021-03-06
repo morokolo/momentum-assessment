@@ -10,10 +10,11 @@ import { LoginRequest } from 'src/app/interfaces/requests/login-request';
 import { EndPoints } from 'src/app/constants/end-points';
 import { AppRoutes } from 'src/app/constants/app-routes';
 import { AccountRequest } from 'src/app/interfaces/requests/account-request';
+import { AccountInfoRequest } from 'src/app/interfaces/requests/account-info-request';
 
 @Injectable()
 export class AccountsEffects {
-  LogUserIn$: Observable<Action> = createEffect(() =>
+  GetAccounts$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(AccountActions.loadAccountss),
       switchMap((payload: any) => {
@@ -32,6 +33,32 @@ export class AccountsEffects {
             ),
             catchError((error) =>
               of(AccountActions.loadAccountssFailure(error))
+            )
+          );
+      })
+    )
+  );
+
+  GetAccountInfo$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AccountActions.loadAccountInfo),
+      switchMap((payload: any) => {
+        const accountInfoRequest: AccountInfoRequest =
+          payload.accountInfoRequest;
+        return this.apiService
+          .getByIdUri(
+            EndPoints.ACCOUNTS,
+            accountInfoRequest.accNum,
+            accountInfoRequest.token
+          )
+          .pipe(
+            map((accountInfoResponse) =>
+              AccountActions.loadAccountInfoSuccess({
+                accountInfoResponse: accountInfoResponse,
+              })
+            ),
+            catchError((error) =>
+              of(AccountActions.loadAccountInfoFailure(error))
             )
           );
       })

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AccountRequest } from 'src/app/interfaces/requests/account-request';
 import { LocalStorageService } from 'src/app/services/local-storage-service';
-import { loadAccountss } from 'src/app/ngrx-store/actions/accounts.actions';
+import {
+  loadAccountInfo,
+  loadAccountss,
+} from 'src/app/ngrx-store/actions/accounts.actions';
 
 import {
   accountsLoader,
@@ -11,6 +14,9 @@ import {
 } from 'src/app/ngrx-store/selectors/accounts.selectors';
 import { Observable } from 'rxjs';
 import { AccountsResponse } from 'src/app/interfaces/responses/accounts-response';
+import { AccountInfoRequest } from 'src/app/interfaces/requests/account-info-request';
+import { ModalController } from '@ionic/angular';
+import { AccountInfoPage } from '../account-info/account-info.page';
 @Component({
   selector: 'app-account-listings',
   templateUrl: './account-listings.page.html',
@@ -26,6 +32,7 @@ export class AccountListingsPage implements OnInit {
   error$: Observable<boolean> = this.store.select(accountsErrorResponse);
 
   constructor(
+    public modalController: ModalController,
     public localStorageService: LocalStorageService,
     public store: Store
   ) {}
@@ -41,6 +48,20 @@ export class AccountListingsPage implements OnInit {
       };
 
       this.store.dispatch(loadAccountss({ accountRequest }));
+    }
+  }
+
+  async getAccountInfo(accountNumber) {
+    // this.store.dispatch(loadAccountss({ a }));
+    if (accountNumber && this.idToken) {
+      const modal = await this.modalController.create({
+        component: AccountInfoPage,
+        componentProps: {
+          accNum: accountNumber,
+          token: this.idToken,
+        },
+      });
+      return await modal.present();
     }
   }
 }

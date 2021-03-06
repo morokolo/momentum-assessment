@@ -8,13 +8,13 @@
   <ion-card *ngIf="(accountsLoader$ | async)">
     <ion-card-content> Fetching your accounts.... </ion-card-content>
   </ion-card>
-
   <ion-list *ngIf="!(accountsLoader$ | async)">
-    <ion-list-header> Recent Conversations </ion-list-header>
+    <ion-list-header> Hi {{(accountInfo$ | async).name}} </ion-list-header>
 
     <ion-item
       detail="true"
       *ngFor="let account of (accountInfo$ | async).accounts"
+      (click)="getAccountInfo(account)"
     >
       <ion-avatar slot="start">
         <img src="../../../assets/icon/icon-fixeddeposit-payout.png" />

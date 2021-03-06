@@ -1,0 +1,10 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>account-info</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label>BALANCE{{(accountInfo$ | async).balance}}</ion-label
+  ><ion-label>OVERDRAFT{{(accountInfo$ | async).overdraft}}</ion-label>
+</ion-content>

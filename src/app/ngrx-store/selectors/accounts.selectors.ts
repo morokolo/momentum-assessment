@@ -3,7 +3,7 @@ import { AuthStoreFeature } from 'src/app/constants/constants';
 import { AccountsResponse } from 'src/app/interfaces/responses/accounts-response';
 import { accountsFeatureKey } from '../reducers/accounts.reducer';
 
-export interface AuthenticationLoginState {
+export interface State {
   data: AccountsResponse;
   error: boolean;
   message: string;
@@ -12,29 +12,29 @@ export interface AuthenticationLoginState {
 
 export interface featureState {
   [AuthStoreFeature]: {
-    [accountsFeatureKey]: AuthenticationLoginState;
+    [accountsFeatureKey]: State;
   };
 }
 
-export const selectLoginFeature = (state: featureState) =>
+export const selectAccountFeature = (state: featureState) =>
   state[AuthStoreFeature][accountsFeatureKey];
 
 export const accountsMessageResponse = createSelector(
-  selectLoginFeature,
-  (state: AuthenticationLoginState) => state.message
+  selectAccountFeature,
+  (state: State) => state.message
 );
 
 export const accountsLoader = createSelector(
-  selectLoginFeature,
-  (state: AuthenticationLoginState) => state.isLoading
+  selectAccountFeature,
+  (state: State) => state.isLoading
 );
 
 export const accountsErrorResponse = createSelector(
-  selectLoginFeature,
-  (state: AuthenticationLoginState) => state.error
+  selectAccountFeature,
+  (state: State) => state.error
 );
 
 export const accountsDataResponse = createSelector(
-  selectLoginFeature,
-  (state: AuthenticationLoginState) => state.data
+  selectAccountFeature,
+  (state: State) => state.data
 );

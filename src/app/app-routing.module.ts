@@ -15,6 +15,10 @@ const routes: Routes = [
         (m) => m.AccountListingsPageModule
       ),
   },
+  {
+    path: 'account-info',
+    loadChildren: () => import('./pages/account-info/account-info.module').then( m => m.AccountInfoPageModule)
+  },
 ];
 @NgModule({
   imports: [

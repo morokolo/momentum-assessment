@@ -27,7 +27,7 @@ export class HttpRequestService {
 
   getByIdUri(getUrl: string, localId: string, token: string): Observable<any> {
     const url = `${this.firebaseUrl}${getUrl}/${localId}.json?auth=${token}`;
-    console.log('url', url);
+    console.log('new ', url);
     return this.http.get<any>(url);
   }
 }
