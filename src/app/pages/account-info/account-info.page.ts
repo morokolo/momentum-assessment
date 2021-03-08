@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AccountInfoRequest } from 'src/app/interfaces/requests/account-info-request';
@@ -10,6 +11,7 @@ import {
   accountInfoLoader,
   accountInfoErrorResponse,
 } from 'src/app/ngrx-store/selectors/account-info.selectors';
+import { TransactPage } from '../transact/transact.page';
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.page.html',
@@ -22,7 +24,7 @@ export class AccountInfoPage implements OnInit {
     accountInfoDataResponse
   );
 
-  constructor(public store: Store) {}
+  constructor(public store: Store, public modalController: ModalController) {}
 
   ngOnInit() {
     const accountInfoRequest: AccountInfoRequest = {
@@ -31,5 +33,12 @@ export class AccountInfoPage implements OnInit {
     };
 
     this.store.dispatch(loadAccountInfo({ accountInfoRequest }));
+  }
+
+  async presentModal(accountNum, typpe) {
+    const modal = await this.modalController.create({
+      component: TransactPage,
+    });
+    return await modal.present();
   }
 }

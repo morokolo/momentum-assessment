@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import * as fromRoot from './ngrx-store/reducers';
 import { AuthStoreFeature } from './constants/constants';
 import { AccountsEffects } from './ngrx-store/effects/accounts.effects';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const REDUCER_TOKEN = new InjectionToken<
   ActionReducerMap<fromRoot.State>
@@ -25,6 +26,8 @@ export const REDUCER_TOKEN = new InjectionToken<
   entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,

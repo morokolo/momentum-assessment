@@ -5,6 +5,34 @@
 </ion-header>
 
 <ion-content>
-  <ion-label>BALANCE{{(accountInfo$ | async).balance}}</ion-label
-  ><ion-label>OVERDRAFT{{(accountInfo$ | async).overdraft}}</ion-label>
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="../../../assets/icon/icon-fixeddeposit-payout.png" />
+        </ion-avatar>
+        <ion-label>
+          <h2>Savings Account</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-card-content>
+      <p>BALANCE : R {{(accountInfo$ | async).balance}}</p>
+      <p>OVERDRAFT: R{{(accountInfo$ | async).overdraft}}</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="full" (click)="presentModal(accNum, 'deposit')"
+          >Deposit Funds</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button expand="full" (click)="presentModal(accNum, 'withdraw')"
+          >Withdraw Funds</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

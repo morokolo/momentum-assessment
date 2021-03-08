@@ -20,7 +20,10 @@ export class LoginPage implements OnInit {
   loading$: Observable<boolean> = this.store.select(loginLoader);
   alertMessage$: Observable<string> = this.store.select(loginMessageResponse);
   error$: Observable<boolean> = this.store.select(loginErrorResponse);
-
+  user = {
+    username: '',
+    password: '',
+  };
   constructor(
     private router: Router,
     public store: Store,
@@ -29,16 +32,17 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  async login() {
+  login() {
     //disable button
+    // email: 'bob@email.com',
+    //   password: 'password',
 
     const loginRequest: LoginRequest = {
-      email: 'bob@email.com',
-      password: 'password',
+      email: this.user.username,
+      password: this.user.password,
       returnSecureToken: true,
     };
 
     this.store.dispatch(loadAuthentications({ loginRequest }));
-    //this.router.navigate(['dashboard']);
   }
 }
